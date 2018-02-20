@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'blurfaces'
-  s.version = '0.1.0'
+  s.version = '0.1.1'
   s.summary = 'Uses OpenCV to detect faces and RMagick to blur faces.'
   s.authors = ['James Robertson']
   s.files = Dir['lib/blurfaces.rb', 'lib/haarcascade_frontalface_alt.xml']

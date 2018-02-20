@@ -8,7 +8,7 @@ require 'rmagick'
 
 class BlurFaces
 
-  attr_reader :faces
+  attr_accessor :faces
 
   def initialize(fname=nil, haar_xml_file: File.join(File.dirname(__FILE__),\
        'haarcascade_frontalface_alt.xml'))
