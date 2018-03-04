@@ -2,7 +2,7 @@
 
 # filename: blurfaces.rb
 
-require 'opencv'
+require 'detectfaces'
 require 'rmagick'
 
 
@@ -10,11 +10,9 @@ class BlurFaces
 
   attr_accessor :faces
 
-  def initialize(fname=nil, haar_xml_file: File.join(File.dirname(__FILE__),\
-       'haarcascade_frontalface_alt.xml'))
+  def initialize(fname=nil)
 
-    @detector = OpenCV::CvHaarClassifierCascade::load haar_xml_file
-
+    @df = DetectFaces.new
     read(fname) if fname 
 
   end
@@ -36,7 +34,7 @@ class BlurFaces
   def read(fname)
 
     @fname = fname
-    @faces = detect_faces(fname)
+    @faces = @df.read(fname).faces
     @img = Magick::Image.read(fname)[0]
 
     self
@@ -46,16 +44,5 @@ class BlurFaces
   def save(fname)
     @img.write(fname)
   end
-
-  private
-
-  def detect_faces(fname)
-
-    image = OpenCV::IplImage::load fname
-
-    a = @detector.detect_objects(image)
-    a.map {|img| [img.x, img.y, img.width, img.height]}
-
-  end
-
+  
 end
